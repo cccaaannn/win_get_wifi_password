@@ -9,6 +9,15 @@ import (
 
 func main() {
 
+	// Start the program as elevated if it is not
+	if !command.IsElevated() {
+		err := command.RunAsElevated()
+		if err != nil {
+			fmt.Printf("Failed to start the program as administrator: %v\n", err)
+			os.Exit(1)
+		}
+	}
+
 	fmt.Print("Win wifi password getter\n\n")
 
 	wifiNames, err := command.GetSavedWifiNames()
